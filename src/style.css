@@ -1,0 +1,252 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Motrix-v2 "neutral liquid glass" tokens, adapted.
+ *
+ * Chrome is neutral (near-black primary in light, near-white in dark); color
+ * is reserved for DATA: download = cyan, upload = blue-violet, plus success /
+ * warning for task states. The page shell and sidebar share a faint blue-gray
+ * tint (light) / deep neutral ramp (dark); the main content floats as an
+ * inset card. Radius base 10px, cards 14px via --radius-xl.
+ */
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --muted: oklch(0.968 0.003 235);
+  --muted-foreground: oklch(0.552 0.01 235);
+  --border: oklch(0.918 0.004 235);
+  --input: oklch(0.918 0.004 235);
+  /* Focus ring: the cyan data accent, always rendered 2px */
+  --ring: hsl(193 75% 40%);
+
+  --accent: oklch(0.965 0.004 235);
+  --accent-foreground: oklch(0.205 0 0);
+  /* Neutral chrome: near-black controls in light mode */
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0.002 235);
+  --secondary-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  /* Data colors (Motrix chart palette) */
+  --down: hsl(193 83% 50%);
+  --up: hsl(243 96% 66%);
+  --success: hsl(142 70% 40%);
+  --warning: hsl(35 85% 45%);
+
+  /* Sidebar: faint blue-gray tint; the main content floats as the inset card */
+  --sidebar: oklch(0.966 0.006 235);
+  --sidebar-foreground: oklch(0.42 0.012 235);
+  --sidebar-inset: oklch(1 0 0);
+  --sidebar-accent: rgb(0 0 0 / 4%);
+  --sidebar-active: rgb(0 0 0 / 8%);
+  --sidebar-border: oklch(0.9 0.004 235);
+
+  --radius: 0.625rem;
+  --shadow-soft:
+    0 1px 2px oklch(0.2 0.01 250 / 0.04),
+    0 4px 12px -6px oklch(0.2 0.01 250 / 0.05);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: hsl(193 85% 62%);
+
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  /* Neutral chrome: near-white controls in dark mode */
+  --primary: oklch(0.92 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  /* Data colors — lightened for dark surfaces */
+  --down: hsl(193 83% 55%);
+  --up: hsl(243 92% 72%);
+  --success: hsl(142 65% 56%);
+  --warning: hsl(38 90% 62%);
+
+  /* Sidebar: deep neutral rail; the inset card sits darker on top of it */
+  --sidebar: oklch(0.19 0 0);
+  --sidebar-foreground: oklch(0.86 0 0);
+  --sidebar-inset: oklch(0.145 0 0);
+  --sidebar-accent: rgb(255 255 255 / 6%);
+  --sidebar-active: rgb(255 255 255 / 13%);
+  --sidebar-border: oklch(1 0 0 / 9%);
+
+  --shadow-soft:
+    0 1px 2px oklch(0 0 0 / 0.4),
+    0 12px 32px -16px oklch(0 0 0 / 0.55);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-sidebar-inset: var(--sidebar-inset);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-down: var(--down);
+  --color-up: var(--up);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: ui-sans-serif, system-ui, "Segoe UI", "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", sans-serif;
+  --shadow-soft: var(--shadow-soft);
+
+  --animate-fade-in: fade-in 0.16s ease-out;
+  --animate-pop-in: pop-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-in: slide-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pop-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateX(16px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@layer base {
+  html,
+  body,
+  #app {
+    height: 100%;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--down) 24%, transparent);
+    color: var(--foreground);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklch, var(--foreground) 16%, transparent) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--foreground) 15%, transparent);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklch, var(--foreground) 28%, transparent);
+    background-clip: padding-box;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes progress-stripes {
+  from {
+    background-position: 1rem 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@utility progress-stripes {
+  background-image: linear-gradient(
+    45deg,
+    color-mix(in oklch, white 22%, transparent) 25%,
+    transparent 25%,
+    transparent 50%,
+    color-mix(in oklch, white 22%, transparent) 50%,
+    color-mix(in oklch, white 22%, transparent) 75%,
+    transparent 75%
+  );
+  background-size: 1rem 1rem;
+  animation: progress-stripes 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
